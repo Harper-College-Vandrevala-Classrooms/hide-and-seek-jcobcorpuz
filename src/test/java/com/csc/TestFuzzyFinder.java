@@ -2,6 +2,7 @@ package com.csc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -19,14 +20,30 @@ public class TestFuzzyFinder {
   }
 
   @Test
-  void exampleFailingTestWithRandomizedFuzzies() {
+  void testLinearSearchWithRandomizedFuzzies(){
     ArrayList<Fuzzy> fuzzies = generator.randomizedRainbowFuzzies();
-    assertEquals("purple", fuzzies.getFirst().color);
+    int index = finder.linearSearch(fuzzies);
+    assertEquals(fuzzies.get(index).color, "gold");
   }
 
   @Test
-  void exampleFailingTestWithSortedFuzzies() {
+  void testLinearSearchWithSortedFuzzies(){
     ArrayList<Fuzzy> fuzzies = generator.sortedRainbowFuzzies();
-    assertEquals("purple", fuzzies.getFirst().color);
+    int index = finder.linearSearch(fuzzies);
+    assertEquals(fuzzies.get(index).color, "gold");
+  }
+
+  @Test
+  void testBinarySearchWithRandomizedFuzzies(){
+    ArrayList<Fuzzy> fuzzies = generator.randomizedRainbowFuzzies();
+    int index = finder.binarySearch(fuzzies);
+    assertEquals(-1, index);
+  }
+
+  @Test
+  void testBinarySearchWithSortedFuzzies(){
+    ArrayList<Fuzzy> fuzzies = generator.sortedRainbowFuzzies();
+    int index = finder.binarySearch(fuzzies);
+    assertEquals(fuzzies.get(index).color, "gold");
   }
 }
